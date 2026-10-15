@@ -10,6 +10,7 @@ func decodeFromDaemon(_ string, data []byte) (Message, error) {
 	return message, nil
 }
 
-func encodeForDaemon(_ string, message Message) ([]byte, error) {
+func encodeForDaemon(daemonVersion string, message Message) ([]byte, error) {
+	message.ProcessOffer = withoutUnsupportedFileOperation(daemonVersion, message.ProcessOffer)
 	return json.Marshal(message)
 }
